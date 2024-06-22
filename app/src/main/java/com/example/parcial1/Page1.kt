@@ -9,6 +9,10 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.LineHeightStyle
@@ -23,6 +27,12 @@ fun Page1(
     modifier: Modifier = Modifier,
     navController: NavController
 ) {
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    val usuarioPruebaEmail = "pedro@pe.com.ar"
+    val usuarioPruebaPassword = "abc123"
+    val usuarioPruebaNombre = "Pedro Pe"
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -37,29 +47,46 @@ fun Page1(
             text = "Ingrese su correo electrónico"
         )
         TextField(
-            value = "email",
-            onValueChange = {})
+            value = email,
+            onValueChange = { email = it })
         Spacer(modifier = modifier.height(30.dp))
 
         Text(
             text = "Ingrese su contraseña"
         )
-        TextField(value = "password",
-            onValueChange = {})
-        Button(
-            onClick = { navController.navigate("page2") },
-            modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(10.dp)
-        ) {
+        TextField(value = password,
+            onValueChange = { password = it })
+
+        if (usuarioPruebaEmail == email && usuarioPruebaPassword == password) {
+            Button(
+                onClick = { navController.navigate("page2") },
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(10.dp)
+            ) {
+                Text(
+                    text = "Ingresar",
+                    modifier = modifier.padding(horizontal = 10.dp)
+                )
+            }
+        } else {
+            Button(
+                onClick = {},
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(10.dp)
+            ) {
+                Text(
+                    text = "Ingresar",
+                    modifier = modifier.padding(horizontal = 10.dp)
+                )
+            }
             Text(
-                text = "Ingresar",
+                text = "Datos incorrectos",
                 modifier = modifier.padding(horizontal = 10.dp)
             )
-
         }
     }
-
 }
 
 @Preview(showBackground = true)
